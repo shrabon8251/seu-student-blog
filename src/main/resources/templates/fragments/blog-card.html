@@ -1,0 +1,13 @@
+<a th:fragment="card(b)" th:href="@{'/blogs/' + ${b.slug}}" class="blog-card fade-in">
+  <div class="thumb"><img th:src="${b.featuredImageUrl}" th:alt="${b.title}" loading="lazy"></div>
+  <div class="body">
+    <span class="tag" th:text="${b.category}">Category</span>
+    <h3 th:text="${b.title}">Blog title</h3>
+    <p th:text="${b.excerpt}">Excerpt</p>
+    <div class="meta">
+      <span th:text="${b.author}">Author</span><span class="dot"></span>
+      <span th:text="${#temporals.format(b.createdAt, 'MMM dd, yyyy')}">Date</span>
+    </div>
+    <div class="meta mt-8" th:text="${b.readingTimeMinutes} + ' min read'">5 min read</div>
+  </div>
+</a>

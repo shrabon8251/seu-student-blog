@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Login — SEU Student Blog</title>
+  <link rel="stylesheet" th:href="@{/css/global.css}">
+  <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+<div class="login-shell">
+  <div>
+    <div class="login-card">
+      <div class="logo">SEU<span style="color:var(--ink-soft)">Student Blog</span></div>
+      <div class="portal">Admin Portal</div>
+      <p th:if="${param.error}" style="color:#c0392b;margin-bottom:16px;font-size:13.5px">Invalid email or password.</p>
+      <form method="post" th:action="@{/admin/login}">
+        <div class="field" style="text-align:left"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="admin@seublog.edu" required></div>
+        <div class="field" style="text-align:left"><label for="password">Password</label><input id="password" name="password" type="password" placeholder="••••••••" required></div>
+        <button class="btn btn-primary btn-block" type="submit">Login</button>
+      </form>
+    </div>
+    <div style="text-align:center"><a th:href="@{/}" class="back-link">← Back to website</a></div>
+  </div>
+</div>
+</body>
+</html>

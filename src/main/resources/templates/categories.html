@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Explore Categories — SEU Student Blog</title>
+  <link rel="stylesheet" th:href="@{/css/global.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar('categories')}"></div>
+
+<header class="page-header">
+  <div class="wrap"><h1>Explore Categories</h1><p>Browse stories by topic — from core programming to student life.</p></div>
+</header>
+
+<section class="section-tight">
+  <div class="wrap">
+    <div class="grid-4">
+      <a th:each="c : ${categories}" th:href="@{/blogs(category=${c.name})}" class="cat-card">
+        <div class="cat-icon" th:text="${c.icon}">💻</div>
+        <h3 th:text="${c.name}">Category</h3>
+        <p th:text="${c.description}">Description</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

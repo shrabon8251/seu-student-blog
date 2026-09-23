@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Write a Post — SEU Student Blog</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar('write')}"></div>
+
+<section class="section">
+    <div class="wrap" style="max-width:680px">
+        <span class="eyebrow">Student Corner</span>
+        <h1 style="margin:10px 0 16px">Share your post</h1>
+        <p style="color:var(--ink-soft);font-size:16.5px;margin-bottom:28px">
+            No account needed — write your post and it goes live right away.
+            Sharing your name is optional; leave it blank to post as "Anonymous Student".
+        </p>
+
+        <form method="post" th:action="@{/write}" th:object="${blog}">
+            <div class="field">
+                <label for="title">Title</label>
+                <input id="title" name="title" type="text" required>
+            </div>
+
+            <div class="field">
+                <label for="category">Category</label>
+                <select id="category" name="category">
+                    <option th:each="c : ${categories}" th:value="${c.name}" th:text="${c.name}"></option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="content">Your Post</label>
+                <textarea id="content" name="content" style="min-height:260px" required
+                          placeholder="Write your story, tips, or experience here..."></textarea>
+            </div>
+
+            <div class="field">
+                <label for="excerpt">Short Summary <span style="font-weight:400;color:var(--ink-soft)">(optional)</span></label>
+                <textarea id="excerpt" name="excerpt" style="min-height:70px"
+                          placeholder="One or two lines about your post. We'll generate one if you leave this blank."></textarea>
+            </div>
+
+            <div class="field">
+                <label for="featuredImageUrl">Cover Image URL <span style="font-weight:400;color:var(--ink-soft)">(optional)</span></label>
+                <input id="featuredImageUrl" name="featuredImageUrl" type="text" placeholder="https://...">
+            </div>
+
+            <hr style="border:none;border-top:1px solid var(--border);margin:28px 0">
+
+            <p style="font-weight:700;color:var(--navy);margin-bottom:14px">About you (optional)</p>
+
+            <div class="field">
+                <label for="author">Your Name</label>
+                <input id="author" name="author" type="text" placeholder="Leave blank to post anonymously">
+            </div>
+
+            <div class="field">
+                <label for="authorDept">Department / Year</label>
+                <input id="authorDept" name="authorDept" type="text" placeholder="e.g. CSE · 3rd Year">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Publish Post</button>
+        </form>
+    </div>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

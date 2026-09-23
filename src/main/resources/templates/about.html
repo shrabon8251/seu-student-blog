@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — SEU Student Blog</title>
+  <link rel="stylesheet" th:href="@{/css/global.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar('about')}"></div>
+
+<header class="page-header">
+  <div class="wrap"><h1>A place for SEU students to share what they know.</h1></div>
+</header>
+
+<section class="section-tight">
+  <div class="wrap" style="max-width:740px">
+    <span class="eyebrow">Our Purpose</span>
+    <h2 style="margin-bottom:16px">Why this platform exists</h2>
+    <p style="color:var(--ink-soft);font-size:17px;line-height:1.8">SEU Student Blog is a platform where students can share technical knowledge, projects, learning experiences, university experiences, career advice and ideas — written by students, for students.</p>
+  </div>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

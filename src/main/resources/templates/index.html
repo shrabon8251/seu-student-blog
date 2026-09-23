@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SEU Student Blog — Stories, Ideas &amp; Knowledge from SEU Students</title>
+  <link rel="stylesheet" th:href="@{/css/global.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar('home')}"></div>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Southeast University</span>
+      <h1>Stories, Ideas &amp;<br>Knowledge from<br>SEU Students.</h1>
+      <p>Discover perspectives, technical knowledge, projects and experiences from the SEU student community.</p>
+      <a th:href="@{/blogs}" class="btn btn-primary">Explore Blogs</a>
+    </div>
+    <div class="hero-media">
+      <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=900&q=80" alt="Students collaborating on a laptop">
+    </div>
+  </div>
+</header>
+
+<section class="section-tight">
+  <div class="wrap">
+    <div class="section-head"><h2>Latest Stories</h2>
+      <a th:href="@{/blogs}" class="view-all">View All →</a>
+    </div>
+    <div class="grid-3">
+      <th:block th:each="blog : ${latestBlogs}">
+        <a th:replace="~{fragments/blog-card :: card(${blog})}"></a>
+      </th:block>
+
+      <p th:if="${#lists.isEmpty(latestBlogs)}"
+         style="color:var(--ink-soft)">
+        No stories published yet.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="wrap">
+    <div class="section-head"><h2>Explore by Category</h2></div>
+    <div class="grid-4">
+      <a th:each="c : ${categories}" th:href="@{/blogs(category=${c.name})}" class="cat-card">
+        <div class="cat-icon" th:text="${c.icon}">💻</div>
+        <h3 th:text="${c.name}">Category</h3>
+        <p th:text="${c.description}">Description</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="wrap">
+    <div class="cta">
+      <h2>Have something worth sharing?</h2>
+      <p>Explore ideas, projects and experiences from the SEU student community.</p>
+      <a th:href="@{/blogs}" class="btn btn-primary">Explore Stories</a>
+    </div>
+  </div>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Categories — SEU Student Blog Admin</title>
+  <link rel="stylesheet" th:href="@{/css/global.css}">
+  <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+<div class="admin-shell">
+  <aside class="admin-sidebar" th:replace="~{admin/fragments/sidebar :: sidebar('categories')}"></aside>
+  <main class="admin-main">
+    <div class="admin-topbar"><h1>Categories</h1></div>
+    <table class="admin-table">
+      <thead><tr><th>Name</th><th>Description</th><th>Actions</th></tr></thead>
+      <tbody>
+        <tr th:each="c : ${categories}">
+          <td th:text="${c.icon} + ' ' + ${c.name}">Category</td>
+          <td th:text="${c.description}">Description</td>
+          <td class="action-links"><a href="#">Edit</a><a href="#" class="danger">Delete</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+</div>
+</body>
+</html>

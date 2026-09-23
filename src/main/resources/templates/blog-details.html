@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="${blog.title} + ' — SEU Student Blog'">Article</title>
+  <link rel="stylesheet" th:href="@{/css/global.css}">
+  <style>
+    .article-header{text-align:center;padding:56px 0 32px}
+    .article-header h1{font-size:clamp(28px,4vw,42px);max-width:800px;margin:14px auto 20px}
+    .article-hero{max-width:1180px;margin:0 auto;padding:0 28px 48px}
+    .article-hero img{border-radius:16px;aspect-ratio:16/9;width:100%}
+    .article-body{max-width:740px;margin:0 auto;padding:0 28px 64px;font-size:17.5px;line-height:1.85;color:#2b2e38}
+    .author-row{display:flex;gap:12px;align-items:center;justify-content:center;color:var(--ink-soft);font-size:14.5px;flex-wrap:wrap}
+  </style>
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar('blogs')}"></div>
+
+<header class="article-header">
+  <div class="wrap">
+    <div th:if="${param.submitted != null}" class="badge badge-published" style="margin-bottom:14px">
+      🎉 Your post is live!
+    </div>
+    <span class="tag" th:text="${blog.category}">Category</span>
+    <h1 th:text="${blog.title}">Title</h1>
+    <div class="author-row">
+      <strong th:text="${blog.author}">Author</strong><span class="dot"></span>
+      <span th:text="${blog.authorDept}">Dept</span><span class="dot"></span>
+      <span th:text="${#temporals.format(blog.createdAt, 'MMM dd, yyyy')}">Date</span><span class="dot"></span>
+      <span th:text="${blog.readingTimeMinutes} + ' min read'">5 min read</span>
+    </div>
+  </div>
+</header>
+
+<div class="article-hero"><img th:src="${blog.featuredImageUrl}" th:alt="${blog.title}"></div>
+
+<article class="article-body" th:utext="${blog.content}">
+  Article content rendered as HTML from the rich-text editor.
+</article>
+
+<section class="section-tight">
+  <div class="wrap">
+    <div class="section-head"><h2>You May Also Like</h2></div>
+    <div class="grid-3">
+      <div th:each="b : ${related}" th:replace="~{fragments/blog-card :: card(${b})}"></div>
+    </div>
+  </div>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

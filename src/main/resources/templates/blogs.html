@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Explore Stories — SEU Student Blog</title>
+  <link rel="stylesheet" th:href="@{/css/global.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar('blogs')}"></div>
+
+<header class="page-header">
+  <div class="wrap">
+    <h1>Explore Stories</h1>
+    <p>Discover articles, ideas and experiences from the SEU student community.</p>
+  </div>
+</header>
+
+<section class="section-tight">
+  <div class="wrap">
+    <form method="get" th:action="@{/blogs}" class="filter-bar">
+      <div class="search-box">🔍<input type="text" name="q" th:value="${query}" placeholder="Search stories..."></div>
+      <button class="btn btn-outline btn-sm" type="submit">Search</button>
+    </form>
+
+    <div class="chip-row mt-16" style="margin-bottom:34px">
+      <a th:href="@{/blogs}" class="chip" th:classappend="${activeCategory == null} ? 'active'">All</a>
+      <a th:each="c : ${categories}" th:href="@{/blogs(category=${c.name})}"
+         class="chip" th:classappend="${activeCategory == c.name} ? 'active'" th:text="${c.name}">Category</a>
+    </div>
+
+    <div class="grid-3">
+      <th:block th:each="blog : ${blogPage.content}">
+        <div th:replace="~{fragments/blog-card :: card(${blog})}"></div>
+      </th:block>
+    </div>
+
+    <div class="empty-state" th:if="${blogPage.content.isEmpty()}">
+      <div class="icon">🗂️</div>
+      <h3>No stories found</h3>
+      <p>We couldn't find any stories matching your search.</p>
+      <a th:href="@{/blogs}" class="btn btn-outline mt-16">Explore All Stories</a>
+    </div>
+
+    <div class="mt-40" th:if="${blogPage.totalPages > 1}" style="display:flex;gap:10px;justify-content:center">
+      <a th:each="p : ${#numbers.sequence(0, blogPage.totalPages - 1)}"
+         th:href="@{/blogs(page=${p}, category=${activeCategory}, q=${query})}"
+         class="chip" th:classappend="${p == blogPage.number} ? 'active'" th:text="${p + 1}">1</a>
+    </div>
+  </div>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

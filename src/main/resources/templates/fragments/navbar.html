@@ -1,0 +1,18 @@
+<!-- th:fragment navbar(active) -->
+<nav class="navbar" th:fragment="navbar(active)">
+  <div class="wrap nav-inner">
+    <a th:href="@{/}" class="logo">SEU<span>Student Blog</span></a>
+    <ul class="nav-links">
+      <li><a th:href="@{/}" th:classappend="${active == 'home'} ? 'active'">Home</a></li>
+      <li><a th:href="@{/blogs}" th:classappend="${active == 'blogs'} ? 'active'">Explore</a></li>
+      <li><a th:href="@{/categories}" th:classappend="${active == 'categories'} ? 'active'">Categories</a></li>
+      <li><a th:href="@{/about}" th:classappend="${active == 'about'} ? 'active'">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a th:href="@{/blogs}" class="icon-btn" title="Search">🔍</a>
+      <a th:href="@{/write}" class="btn btn-primary btn-sm">✍️ Write a Post</a>
+      <a th:href="@{/admin/login}" class="btn btn-outline btn-sm">Admin</a>
+      <button class="nav-toggle">☰</button>
+    </div>
+  </div>
+</nav>

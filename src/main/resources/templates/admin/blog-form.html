@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="${blog.id == null} ? 'Create Blog' : 'Edit Blog'">Create Blog</title>
+  <link rel="stylesheet" th:href="@{/css/global.css}">
+  <link rel="stylesheet" th:href="@{/css/admin.css}">
+  <style>
+    .editor-grid{display:grid;grid-template-columns:1fr 300px;gap:28px}
+    @media(max-width:900px){.editor-grid{grid-template-columns:1fr}}
+    .panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:26px}
+  </style>
+</head>
+<body>
+<div class="admin-shell">
+  <aside class="admin-sidebar" th:replace="~{admin/fragments/sidebar :: sidebar('blogs')}"></aside>
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <h1 th:text="${blog.id == null} ? 'Create New Blog' : 'Update Blog'">Create New Blog</h1>
+    </div>
+
+    <form th:action="@{/admin/blogs}" method="post" class="editor-grid">
+      <input type="hidden" name="id" th:value="${blog.id}">
+      <div class="panel">
+        <div class="field"><label>Title</label><input type="text" name="title" th:value="${blog.title}" required></div>
+        <div class="field"><label>Slug</label><input type="text" name="slug" th:value="${blog.slug}" required></div>
+        <div class="field"><label>Excerpt</label><textarea name="excerpt" style="min-height:70px" th:text="${blog.excerpt}"></textarea></div>
+        <div class="field"><label>Content</label><textarea name="content" style="min-height:220px" th:text="${blog.content}"></textarea></div>
+      </div>
+      <div class="panel">
+        <div class="field"><label>Category</label>
+          <select name="category">
+            <option th:each="c : ${categories}" th:value="${c.name}" th:text="${c.name}"
+                    th:selected="${c.name == blog.category}"></option>
+          </select>
+        </div>
+        <div class="field"><label>Author</label><input type="text" name="author" th:value="${blog.author}"></div>
+        <div class="field"><label>Author Dept/Year</label><input type="text" name="authorDept" th:value="${blog.authorDept}"></div>
+        <div class="field"><label>Featured Image URL</label><input type="text" name="featuredImageUrl" th:value="${blog.featuredImageUrl}"></div>
+        <div class="field"><label>Reading Time (minutes)</label><input type="number" name="readingTimeMinutes" min="1" th:value="${blog.readingTimeMinutes}"></div>
+        <div class="field"><label>Status</label>
+          <select name="status">
+            <option value="DRAFT" th:selected="${blog.status != null and blog.status.name() == 'DRAFT'}">Draft</option>
+            <option value="PUBLISHED" th:selected="${blog.status != null and blog.status.name() == 'PUBLISHED'}">Published</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" th:text="${blog.id == null} ? 'Publish' : 'Save Changes'">Publish</button>
+      </div>
+    </form>
+  </main>
+</div>
+</body>
+</html>

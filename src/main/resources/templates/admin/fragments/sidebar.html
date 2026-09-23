@@ -1,0 +1,14 @@
+<aside th:fragment="sidebar(active)" xmlns:th="http://www.thymeleaf.org">
+  <a th:href="@{/admin/dashboard}" class="logo">SEU<span>Student Blog</span></a>
+  <nav class="admin-nav">
+    <a th:href="@{/admin/dashboard}" th:classappend="${active == 'dashboard'} ? 'active'">📊 Dashboard</a>
+    <div class="group-label">Content</div>
+    <a th:href="@{/admin/blogs}" th:classappend="${active == 'blogs'} ? 'active'">📝 Blog Posts</a>
+    <a th:href="@{/admin/categories}" th:classappend="${active == 'categories'} ? 'active'">🏷️ Categories</a>
+    <div class="group-label">System</div>
+    <a href="#">⚙️ Settings</a>
+  </nav>
+  <form th:action="@{/admin/logout}" method="post">
+    <button type="submit" class="btn btn-outline btn-block admin-logout" style="color:#fff;border-color:rgba(255,255,255,.3)">Logout</button>
+  </form>
+</aside>
